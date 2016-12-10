@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drum Kit</title>
+</head>
+<body>
+    <style type="text/css">
+        body, html {
+          height: 100%;
+          background-image: url(gray2.jpg);
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn_container {
+            width: 100px;
+        }
+
+        .button {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 15px;
+            margin: 20px;
+            line-height: 60px;
+            transition: all 0.07s;
+            box-shadow: 8px 8px 20px gray;
+        }
+
+        .playing {
+            box-shadow: none;
+        }
+
+        .text {
+            text-align: center;
+        }
+
+    </style>
+    <div class="container">
+        <div class="btn_container">
+            <div class="button" data-key="65">A</div>
+            <div class="text">boom</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='83'>S</div>
+            <div class="text">clap</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='68'>D</div>
+            <div class="text">hihat</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='70'>F</div>
+            <div class="text">kick</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='71'>G</div>
+            <div class="text">openhat</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='72'>H</div>
+            <div class="text">ride</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='74'>J</div>
+            <div class="text">snare</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='75'>K</div>
+            <div class="text">tink</div>
+        </div>
+        <div class="btn_container">
+            <div class="button" data-key='76'>L</div>
+            <div class="text">tom</div>
+        </div>
+    </div>
+
+    <audio data-key="65"><source src="sounds/boom.wav" type="audio/wav"></audio>
+    <audio data-key="83"><source src="sounds/clap.wav" type="audio/wav"></audio>
+    <audio data-key="68"><source src="sounds/hihat.wav" type="audio/wav"></audio>
+    <audio data-key="70"><source src="sounds/kick.wav" type="audio/wav"></audio>
+    <audio data-key="71"><source src="sounds/openhat.wav" type="audio/wav"></audio>
+    <audio data-key="72"><source src="sounds/ride.wav" type="audio/wav"></audio>
+    <audio data-key="74"><source src="sounds/snare.wav" type="audio/wav"></audio>
+    <audio data-key="75"><source src="sounds/tink.wav" type="audio/wav"></audio>
+    <audio data-key="76"><source src="sounds/tom.wav" type="audio/wav"></audio>
+
+
+    <script type="text/javascript">
+        window.addEventListener('keydown', function (e) {
+            var button_clicked = document.querySelector(`.button[data-key="${e.keyCode}"]`);
+            var audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            if (button_clicked) {
+                button_clicked.classList.remove('playing');
+                button_clicked.classList.add('playing');
+                audio.currentTime = 0;
+                audio.play();
+            }
+        });
+
+        var buttons = document.querySelectorAll('.button');
+
+        buttons.forEach(function (element) {
+            element.addEventListener('transitionend', e => {
+                e.target.classList.remove('playing');
+            });
+        });
+
+    </script>
+</body>
+</html>
