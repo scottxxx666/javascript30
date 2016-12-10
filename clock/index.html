@@ -33,7 +33,7 @@
             top: 50%;
             transform-origin: 100%;
             transition: transform 0.07s;
-            transition-timing-function: cubic-bezier(1);
+            transition-timing-function: cubic-bezier(0, 2.5, 0.3, 1);
         }
 
         .hour-hand {
@@ -66,13 +66,21 @@
 
     <script type="text/javascript">
 
+        var temp = 0;
+
         const clockMove = function TimeMove () {
             const date = new Date;
             const hour = date.getHours();
             const min = date.getMinutes();
             const sec = date.getSeconds();
 
-            document.querySelector('.sec-hand').style.transform = `rotate(${6 * sec + 90}deg)`;
+            if (sec === 0) {
+                temp = temp + 1;
+            }
+
+            console.log(sec + temp * 60, sec, temp);
+
+            document.querySelector('.sec-hand').style.transform = `rotate(${6 * (sec + temp * 60) + 90}deg)`;
             document.querySelector('.min-hand').style.transform = `rotate(${6 * min + 90}deg)`;
             document.querySelector('.hour-hand').style.transform = `rotate(${6 * hour + 90}deg)`;
         }
