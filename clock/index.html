@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clock</title>
+</head>
+<body>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: url('space.jpg');
+            background-size: cover;
+        }
+        .flex-container {
+            height: 100vh;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 4px solid #FFFF6E;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .hand {
+            height: 3%;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transition: transform 0.07s;
+            transition-timing-function: cubic-bezier(1);
+        }
+
+        .hour-hand {
+            width: 30%;
+            left: 20%;
+            height: 3%;
+        }
+
+        .min-hand {
+            width: 47%;
+            left: 3%;
+            height: 3%;
+        }
+
+        .sec-hand {
+            width: 47%;
+            left: 3%;
+            height: 1.2%;
+        }
+
+    </style>
+
+    <div class="flex-container">
+        <div class="clock">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand sec-hand"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        const clockMove = function TimeMove () {
+            const date = new Date;
+            const hour = date.getHours();
+            const min = date.getMinutes();
+            const sec = date.getSeconds();
+
+            document.querySelector('.sec-hand').style.transform = `rotate(${6 * sec + 90}deg)`;
+            document.querySelector('.min-hand').style.transform = `rotate(${6 * min + 90}deg)`;
+            document.querySelector('.hour-hand').style.transform = `rotate(${6 * hour + 90}deg)`;
+        }
+
+        setInterval(clockMove, 1000);
+
+    </script>
+
+</body>
+</html>
