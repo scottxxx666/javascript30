@@ -48,8 +48,7 @@
         const input = document.querySelectorAll('.input');
 
         input.forEach(element => {
-            element.addEventListener('change', changeCssVariable);
-            element.addEventListener('mousemove', changeCssVariable);
+            element.addEventListener('input', changeCssVariable);
         });
     </script>
 </body>
