@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playing CSS variable and JS</title>
+</head>
+<body>
+    <style type="text/css">
+
+        body {
+            background-color: #0d8585;
+            text-align: center;
+            --padding: 10px;
+            --blur: 5px;
+            --color : #EEEE00;
+        }
+
+        .image {
+            background-color: var(--color);
+            padding: var(--padding);
+            filter: blur(var(--blur));
+        }
+
+        .controller {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+
+    </style>
+
+    <div class="controller">
+        <label>Padding</label>
+        <input class="input" type="range" min="5" max="150" value="10" name="padding" data-unit="px">
+        <label>Blur</label>
+        <input class="input" type="range" name="blur" value="5" data-unit="px">
+        <label>Padding</label>
+        <input class="input" type="color" name="color">
+    </div>
+    <img src="giphy.gif" class="image">
+
+    <script type="text/javascript">
+
+        const changeCssVariable = function variableListener() {
+            const unit = this.dataset.unit || '';
+            document.body.style.setProperty(`--${this.name}`, this.value+unit);
+        }
+
+        const input = document.querySelectorAll('.input');
+
+        input.forEach(element => {
+            element.addEventListener('change', changeCssVariable);
+            element.addEventListener('mousemove', changeCssVariable);
+        });
+    </script>
+</body>
+</html>
