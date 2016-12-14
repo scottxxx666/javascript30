@@ -37,7 +37,7 @@
         }
 
         .tab div {
-            transition: transform 1s;
+            transition: transform 0.2s;
             transition-timing-function: cubic-bezier(0, 1.5, 0.8, 1);
             transform: translateY(100%);
             text-align: center;
@@ -53,7 +53,7 @@
             flex:18 !important;
         }
 
-        .active div {
+        .active-done div {
             transform: translateY(0%);
         }
 
@@ -110,10 +110,22 @@
             }
         }
 
+        const textActive = function textAnimate (e) {
+            const isActive = e.target.classList.contains('active');
+            const isFlex = e.propertyName.includes('flex');
+
+            if (isFlex && isActive) {
+                e.target.classList.add('active-done');
+            } else if (isFlex && !isActive) {
+                e.target.classList.remove('active-done');
+            }
+        }
+
 
         const tabs = document.querySelectorAll('.tab');
 
         tabs.forEach(item => item.addEventListener('click', activeFunction));
+        tabs.forEach(item => item.addEventListener('transitionend', textActive))
 
     </script>
 </body>
