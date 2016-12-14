@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajax Typeahead</title>
+</head>
+<body>
+    <style type="text/css">
+        .highlight {
+            color: red;
+        }
+    </style>
+    <div class="contain">
+        <input type="text" id="search_input" name="search">
+        <ul id="suggestion">
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+        const queryCity = function filtCity (query, cities) {
+            if (query === '') {
+                return [];
+            }
+
+            const result = cities.filter(city => {
+                const reg = new RegExp(query, 'ig');
+                return city.city.match(reg) || city.state.match(reg);
+            });
+
+            return result;
+        }
+
+        const showResult = function showQueryResult (query, cities) {
+            const result = queryCity(query, cities);
+            const suggestion = document.querySelector('#suggestion');
+
+            while (suggestion.hasChildNodes()) {
+                suggestion.removeChild(suggestion.firstChild);
+            }
+
+            // result.map(city => {
+            //     const d = document.createDocumentFragment();
+
+            // });
+
+            const html = result.map(city => {
+                const reg = new RegExp(query, 'ig');
+                const cityResult = city.city.replace(reg, `<span class='highlight'>${query}</span>`);
+                const stateResult = city.state.replace(reg, `<span class='highlight'>${query}</span>`)
+                return `<li>${cityResult} ${stateResult} ${city.population}</li>`;
+            }).join('');
+            
+            suggestion.insertAdjacentHTML('beforeend', html);
+        }
+
+        const cities = [];
+
+        const request = fetch(endpoint)
+                            .then(response => response.json())
+                            .then(blob => cities.push(...blob));
+
+        document.querySelector('#search_input').addEventListener('input', e => showResult(e.target.value, cities));
+
+        // console.log(cities);
+
+    </script>
+</body>
+</html>
