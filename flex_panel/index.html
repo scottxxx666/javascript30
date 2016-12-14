@@ -19,24 +19,42 @@
             width: 60vw;
             height: 80vh;
             display: flex;
+            overflow: hidden;
         }
 
         .tab {
             background-size: cover;
             background-repeat: no-repeat;
+            background-position: right;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            justify-content: flex-end;
             transition: flex 1s;
             flex:1;
+            font-size: 16px;
+            color: white;
+            text-shadow: 1px 1px black;
+        }
+
+        .tab div {
+            transition: transform 1s;
+            transition-timing-function: cubic-bezier(0, 1.5, 0.8, 1);
+            transform: translateY(100px);
+            text-align: center;
+            padding-bottom: 30px;
         }
 
         .tab:hover {
-            flex:5;
+            flex:3;
         }
 
         .active {
-            flex:8;
+            transition-timing-function: cubic-bezier(0, 1.5, 0.8, 1);
+            flex:10 !important;
+        }
+
+        .active div {
+            transform: translateY(0px);
         }
 
         .tab1 {
@@ -61,17 +79,42 @@
     </style>
 
     <div class="panel">
-        <div class="tab tab1"></div>
-        <div class="tab tab2"></div>
-        <div class="tab tab3"></div>
-        <div class="tab tab4"></div>
-        <div class="tab tab5"></div>
+        <div class="tab tab1">
+            <div>桐生一馬</div>
+        </div>
+        <div class="tab tab2">
+            <div>澤村遙</div>
+        </div>
+        <div class="tab tab3">
+            <div>桐生一馬 X 真島吾朗</div>
+        </div>
+        <div class="tab tab4">
+            <div>桐生一馬</div>
+        </div>
+        <div class="tab tab5">
+            <div>牧村實</div>
+        </div>
     </div>
 
     <script type="text/javascript">
-        const tabs = document.querySelector('.tab');
+        const rmActive = function removeActive (target) {
+            target, target.classList.remove('active');
+        }
 
-        // tabs.forEach();
+        const activeFunction = function addActive (e) {
+            const alreadyActive = e.target.classList.contains('active');
+            e.target.parentNode.querySelectorAll('.tab').forEach(item => rmActive(item));
+
+            if (!alreadyActive) {
+                e.target.classList.add('active');
+            }
+        }
+
+
+        const tabs = document.querySelectorAll('.tab');
+
+        tabs.forEach(item => item.addEventListener('click', activeFunction));
+
     </script>
 </body>
 </html>
