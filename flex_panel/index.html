@@ -39,10 +39,9 @@
         .tab div {
             transition: transform 1s;
             transition-timing-function: cubic-bezier(0, 1.5, 0.8, 1);
-            transform: translateY(100px);
+            transform: translateY(100%);
             text-align: center;
             padding-bottom: 30px;
-            visibility: hidden;
         }
 
         .tab:hover {
@@ -55,8 +54,7 @@
         }
 
         .active div {
-            transform: translateY(0px);
-            visibility: visible;
+            transform: translateY(0%);
         }
 
         .tab1 {
