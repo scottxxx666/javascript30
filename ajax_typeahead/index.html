@@ -35,6 +35,10 @@
             overflow:auto;
         }
 
+        .selected {
+            background-color: #DDDDDD;
+        }
+
         .nodisplay {
             display: none;
         }
@@ -49,7 +53,7 @@
 
     </style>
     <div class="contain">
-        <input type="text" id="search_input" name="search" placeholder="Please enter city or state name">
+        <input type="text" id="search_input" name="search" placeholder="Please enter city or state name" autocomplete="off">
         <ul class="nodisplay" id="suggestion">
         </ul>
     </div>
@@ -106,8 +110,8 @@
                 const reg = new RegExp(query, 'ig');
                 const cityResult = city.city.replace(reg, `<span class="highlight">${query}</span>`);
                 const stateResult = city.state.replace(reg, `<span class="highlight">${query}</span>`)
-                return `<li>
-                            <span class="name">${cityResult}, ${stateResult}</span>
+                return `<li class="suggest-li">
+                            <span class="name">${cityResult} ${stateResult}</span>
                             <span class="population">${city.population}</span>
                             <div style="clear:both">
                         </li>`;
@@ -116,15 +120,71 @@
             suggestion.insertAdjacentHTML('beforeend', html);
         }
 
+        const selectSuggestion = function select (e) {
+            if (e.keyCode !== 38 && e.keyCode !== 40) {
+                return false;
+            }
+
+            const selected = document.querySelector('.selected');
+
+            if (e.keyCode === 38) {
+                const prevSib = selected.previousSibling;
+                if (prevSib) {
+                    prevSib.classList.add('selected');
+                }
+
+                selected.classList.remove('selected');
+                return true;
+            }
+
+            if (!selected) {
+                const suggestion = document.querySelector('#suggestion');
+                suggestion.firstChild.classList.add('selected');
+                return true;
+            }
+
+            selected.nextSibling.classList.add('selected');
+            selected.classList.remove('selected');
+        }
+
+        const enterSuggestion = function enterSelect (e, input) {
+            if (e.keyCode !== 13) {
+                return false;
+            }
+
+            const selectedName = document.querySelector('.selected .name');
+
+            if (!selectedName) {
+                return false;
+            }
+
+            suggest(selectedName.textContent, input);
+        }
+
+        const suggest = function suggestion (suggest, input) {
+            input.value = suggest;
+
+            const suggestion = document.querySelector('#suggestion');
+            suggestion.classList.add('nodisplay');
+        }
+
+        // const clickSuggest = function clickSug (e, input) {
+        //     console.log(e.target);
+        // }
+
         const cities = [];
 
         const request = fetch(endpoint)
                             .then(response => response.json())
                             .then(blob => cities.push(...blob));
 
-        document.querySelector('#search_input').addEventListener('input', e => showResult(e.target.value, cities));
+        const searchInput = document.querySelector('#search_input');
 
-        // console.log(cities);
+        searchInput.addEventListener('input', e => showResult(e.target.value, cities));
+        searchInput.addEventListener('keydown', e => selectSuggestion(e));
+        searchInput.addEventListener('keydown', e => enterSuggestion(e, searchInput));
+
+        // document.addEventListener('click', e => clickSuggest(e, searchInput));
 
     </script>
 </body>
