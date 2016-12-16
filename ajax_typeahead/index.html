@@ -111,7 +111,7 @@
                 const cityResult = city.city.replace(reg, `<span class="highlight">${query}</span>`);
                 const stateResult = city.state.replace(reg, `<span class="highlight">${query}</span>`)
                 return `<li class="suggest-li">
-                            <span class="name">${cityResult} ${stateResult}</span>
+                            <span class="name"><label class="cityname">${cityResult}</label>, ${stateResult}</span>
                             <span class="population">${city.population}</span>
                             <div style="clear:both">
                         </li>`;
@@ -120,8 +120,10 @@
             suggestion.insertAdjacentHTML('beforeend', html);
         }
 
-        const selectSuggestion = function select (e) {
-            if (e.keyCode !== 38 && e.keyCode !== 40) {
+        const selectSuggestion = function select (e, input) {
+            const keyCodes = [38, 40, 13];
+
+            if (!keyCodes.includes(e.keyCode)) {
                 return false;
             }
 
@@ -137,21 +139,22 @@
                 return true;
             }
 
-            if (!selected) {
-                const suggestion = document.querySelector('#suggestion');
-                suggestion.firstChild.classList.add('selected');
+            if (e.keyCode === 40) {
+                if (!selected) {
+                    const suggestion = document.querySelector('#suggestion');
+                    suggestion.firstChild.classList.add('selected');
+                    return true;
+                }
+
+                selected.nextSibling.classList.add('selected');
+                selected.classList.remove('selected');
                 return true;
             }
 
-            selected.nextSibling.classList.add('selected');
-            selected.classList.remove('selected');
+            enterSuggestion(e, input);
         }
 
         const enterSuggestion = function enterSelect (e, input) {
-            if (e.keyCode !== 13) {
-                return false;
-            }
-
             const selectedName = document.querySelector('.selected .name');
 
             if (!selectedName) {
@@ -181,8 +184,7 @@
         const searchInput = document.querySelector('#search_input');
 
         searchInput.addEventListener('input', e => showResult(e.target.value, cities));
-        searchInput.addEventListener('keydown', e => selectSuggestion(e));
-        searchInput.addEventListener('keydown', e => enterSuggestion(e, searchInput));
+        searchInput.addEventListener('keydown', e => selectSuggestion(e, searchInput));
 
         // document.addEventListener('click', e => clickSuggest(e, searchInput));
 
