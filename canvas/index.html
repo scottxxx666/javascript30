@@ -72,6 +72,7 @@
         // ctx.globalCompositeOperation = 'multiply';
 
         const draw = function drawing (e) {
+            e.preventDefault();
             if (!(isClick && isIn)) {
                 return false;
             }
@@ -87,10 +88,11 @@
             ctx.lineTo(x, y);
             ctx.stroke();
             [lastX, lastY] = [x, y];
-            hue++;
+            // hue++;
         }
 
         const drawCir = function drawCircle (e) {
+            e.preventDefault();
             isClick = true;
 
             if (!isIn) {
