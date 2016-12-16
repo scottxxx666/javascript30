@@ -145,8 +145,8 @@
         canvas.addEventListener('mouseout', e => isIn = false);
         canvas.addEventListener('mouseenter', enterCan);
 
-        document.addEventListener('touchmove', touchDraw);
-        document.addEventListener('touchstart', touchStart);
+        canvas.addEventListener('touchmove', touchDraw);
+        canvas.addEventListener('touchstart', touchStart);
 
         document.querySelector('#line_width').addEventListener('input', e => lineWidth = e.target.value);
         document.querySelector('#line_color').addEventListener('input', e => color = e.target.value);
