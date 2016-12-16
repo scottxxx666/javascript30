@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas</title>
+</head>
+<body>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffff9a;
+        }
+
+        #canvas {
+            border: 1px groove black;
+            box-shadow: 0 2px 3px gray;
+            background-color: white;
+        }
+
+        .panel-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding-bottom: 10px;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="panel">
+            <div class="panel-box">
+                <div>
+                    <label>寬度: </label>
+                    <input id="line_width" type="range" min="1" max="100" value="1">
+                    <label>顏色: </label>
+                    <input id="line_color" type="color" value="#000000">
+                </div>
+                <div>
+                    <button id="clear_btn">Clear</button>
+                </div>
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const canvas = document.querySelector('#canvas');
+        const width = canvas.width = window.innerWidth * 0.5;
+        const height = canvas.height = window.innerHeight * 0.8;
+        const ctx = canvas.getContext('2d');
+
+        let lastX = 0;
+        let lastY = 0;
+        let isClick = false;
+        let isIn = false;
+        let lineWidth = 1;
+        let hue = 0;
+        let color = '#000000';
+
+        ctx.lineCap = 'round';
+        // ctx.globalCompositeOperation = 'multiply';
+
+        const draw = function drawing (e) {
+            if (!(isClick && isIn)) {
+                return false;
+            }
+
+            let x = e.x - this.offsetLeft;
+            let y = e.y - this.offsetTop;
+
+            ctx.lineWidth = lineWidth;
+            // ctx.strokeStyle = `hsl(${hue}, 50%, 50%)`;
+            ctx.strokeStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            [lastX, lastY] = [x, y];
+            hue++;
+        }
+
+        canvas.addEventListener('mousemove', draw);
+        document.addEventListener('mousedown', e => {
+            isClick = true;
+
+            if (!isIn) {
+                return false;
+            }
+
+            let x = e.x - canvas.offsetLeft;
+            let y = e.y - canvas.offsetTop;
+
+            [lastX, lastY] = [x, y];
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, lineWidth/2, 0, 2*Math.PI);
+            console.log(x, y);
+
+            ctx.fill();
+        });
+        document.addEventListener('mouseup', e => isClick = false);
+        canvas.addEventListener('mouseout', e => isIn = false);
+        canvas.addEventListener('mouseenter', e => {
+            isIn = true;
+            let x = e.x - this.offsetLeft;
+            let y = e.y - this.offsetTop;
+            [lastX, lastY] = [x, y];
+        });
+
+        document.querySelector('#line_width').addEventListener('input', e => lineWidth = e.target.value);
+        document.querySelector('#line_color').addEventListener('input', e => color = e.target.value);
+        document.querySelector('#clear_btn').addEventListener('click', e => ctx.clearRect(0, 0, canvas.width, canvas.height));
+
+    </script>
+</body>
+</html>
