@@ -118,9 +118,9 @@
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('touchmove', draw);
         document.addEventListener('mousedown', drawCir);
-        document.addEventListener('touchdown', drawCir);
+        document.addEventListener('touchstart', drawCir);
         document.addEventListener('mouseup', e => isClick = false);
-        document.addEventListener('touchup', e => isClick = false);
+        document.addEventListener('touchend', e => isClick = false);
         canvas.addEventListener('mouseout', e => isIn = false);
         canvas.addEventListener('touchout', e => isIn = false);
         canvas.addEventListener('mouseenter', enterCan);
