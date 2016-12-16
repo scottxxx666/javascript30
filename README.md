@@ -13,3 +13,5 @@ DAY 5 - [Flex panel](https://scottxxx666.github.io/javascript30/flex_panel/)
 DAY 6 - [Ajax typeahead](https://scottxxx666.github.io/javascript30/ajax_typeahead)
 
 DAY 7 - [Array cardio2](https://scottxxx666.github.io/javascript30/array_cardio2)
+
+DAY 8 - [Canvas](https://scottxxx666.github.io/javascript30/canvas)
