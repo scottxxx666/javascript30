@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check multiple checkbox</title>
+</head>
+<body>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #00001b;
+        }
+
+        .panel {
+            background-color: #ffff67;
+            padding: 30px;
+            box-shadow: 1px 1px 3px black;
+            border-radius: 5px;
+        }
+
+        .input_group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input_checkbox:checked + p {
+            text-decoration: line-through;
+        }
+
+        p {
+            margin: 5px;
+            flex:1;
+        }
+
+    </style>
+    <div class="container">
+        <div class="panel">
+            <div class="input_group">
+                Press shift for multiple check
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c1" type="checkbox"> <p>check1</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c2" type="checkbox"> <p>check2</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c3" type="checkbox"> <p>check3</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c4" type="checkbox"> <p>check4</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c5" type="checkbox"> <p>check5</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c6" type="checkbox"> <p>check6</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c7" type="checkbox"> <p>check7</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c8" type="checkbox"> <p>check8</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c9" type="checkbox"> <p>check9</p>
+            </div>
+            <div class="input_group">
+                <input class="input_checkbox" name="c10" type="checkbox"> <p>check10</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const checkboxes = document.querySelectorAll('.input_checkbox');
+
+        let lastChecked = false;
+
+        const checkboxChange = function checkChange (e) {
+            if (!e.shiftKey || !lastChecked) {
+                lastChecked = this;
+                return false;
+            }
+
+            let isBetween = false;
+            checkboxes.forEach(checkbox => {
+                if (checkbox === this || checkbox === lastChecked) {
+                    isBetween = !isBetween;
+                }
+
+                if (isBetween) {
+                    checkbox.checked = this.checked;
+                }
+            });
+
+            lastChecked = this;
+        }
+
+        checkboxes.forEach(checkbox => checkbox.addEventListener('click', checkboxChange));
+    </script>
+</body>
+</html>
