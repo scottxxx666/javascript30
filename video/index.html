@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom HTML5 video player</title>
+</head>
+<body>
+    <style type="text/css">
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .panel div {
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel .progress-bar {
+            flex: 0 1 100%;
+            justify-content: flex-start;
+            user-select: none;
+        }
+
+        .panel .progress {
+            height: 30px;
+            background-color: yellow;
+            width: 0%;
+            pointer-events:none;
+            border: none;
+            border-right: 1px solid black;
+        }
+
+        .btn {
+            flex: 1 1 10%;
+            user-select: none;
+        }
+
+        .range {
+            flex: 1 1 20%;
+        }
+
+        .range input {
+            width: 50%;
+        }
+    </style>
+
+    <div class="movie-border">
+        <video id="video" width="640" height="320">
+            <source src="iu.mp4" type="video/mp4">
+            瀏覽器不支援唷
+        </video>
+        <div class="panel">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="play-btn btn">播放</div>
+            <div class="range">
+                <label>音量: </label>
+                <input type="range" name="volume" min="0" max="1" step="0.01" value="1">
+            </div>
+            <div class="range">
+                <label>播放速度: </label>
+                <input type="range" name="playspeed" min="0.25" max="4" step="0.25" value="1">
+            </div>
+            <div class="short-jump btn">>> 10s</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        // dom
+        const video = document.querySelector('#video');
+        const playBtn = document.querySelector('.play-btn');
+        const volumeInput = document.querySelector('input[name=volume]');
+        const speedInput = document.querySelector('input[name=playspeed]');
+        const jumpInput = document.querySelector('.short-jump');
+        const progressBar = document.querySelector('.progress-bar');
+        const progress = document.querySelector('.progress');
+
+        // function
+        const playHandle = function playVideoHandle (e) {
+            e.preventDefault();
+            if (video.paused) {
+                video.play();
+                return false;
+            }
+            video.pause();
+        }
+
+        const updateBtn = function updateButton (e) {
+            if (video.paused) {
+                playBtn.textContent = '播放';
+            } else {
+                playBtn.textContent = '暫停';
+            }
+        }
+
+        const volumeHandle = function volumeHandler (e) {
+            video.volume = this.value;
+        }
+
+        const speedHandle = function speedHandler (e) {
+            video.playbackRate = this.value;
+        }
+
+        const jumpHandle = function jumpHandler (e) {
+            e.preventDefault();
+            video.currentTime += 10;
+        }
+
+        const updateProgress = function updateProgressBar (e) {
+            const percent = video.currentTime / video.duration * 100;
+            progress.style.width = `${percent}%`;
+        }
+
+        const progressHandle = function progressHandler (e) {
+            const percent = e.offsetX / e.target.clientWidth;
+            video.currentTime = video.duration * percent;
+            console.log(e.offsetX, e.target.clientWidth);
+        }
+
+        // variable
+        let isMouseDown = false;
+
+        playBtn.addEventListener('click', playHandle);
+        volumeInput.addEventListener('input', volumeHandle);
+        speedInput.addEventListener('input', speedHandle);
+        jumpInput.addEventListener('click', jumpHandle);
+        video.addEventListener('play', updateBtn);
+        video.addEventListener('pause', updateBtn);
+        video.addEventListener('timeupdate', updateProgress);
+        progressBar.addEventListener('mousedown', () => isMouseDown = true);
+        progressBar.addEventListener('mouseup', () => isMouseDown = false);
+        progressBar.addEventListener('mousemove', e => isMouseDown && progressHandle(e));
+        progressBar.addEventListener('click', progressHandle);
+
+    </script>
+</body>
+</html>
