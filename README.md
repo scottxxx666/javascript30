@@ -19,3 +19,5 @@ DAY 8 - [Canvas](https://scottxxx666.github.io/javascript30/canvas)
 DAY 9 - [Console](https://scottxxx666.github.io/javascript30/console)
 
 DAY 10 - [Check multiple checkboxes](https://scottxxx666.github.io/javascript30/checkboxes)
+
+DAY 11 - [Custom HTML5 video player](https://scottxxx666.github.io/javascript30/video)
