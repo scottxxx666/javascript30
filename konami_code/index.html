@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konami Code</title>
+</head>
+<body>
+    <style type="text/css">
+        body {
+            width: 100vw;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hint {
+            font-size: 26px;
+        }
+
+        #tan6 {
+            position: absolute;
+            max-width: 60vw;
+            max-height: 60vh;
+            top: 50%;
+            transform: translate(-100%, -50%);
+            z-index: 888;
+            user-select: none;
+        }
+
+        .animate {
+            animation-name: run;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+        }
+
+        @keyframes run {
+            0% {transform: translate(-100%, -50%);}
+            100% {transform: translate(100vw, -50%);}
+        }
+    </style>
+    <img id="tan6" src="6tan.jpg">
+    <div class="container">
+        <div class="hint">
+            Please enter  ↑ ↑ ↓ ↓ ← → ← → B A
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+        const sixtan = document.querySelector('#tan6');
+
+        const keydownHandle = function keydownHandler (e) {
+            pressed.push(e.code);
+            pressed.splice(0, pressed.length - konami.length);
+
+            // equals
+            // pressed = pressed.slice(-konami.length);
+
+            if (pressed.join('').includes(konami.join(''))) {
+                sixtan.classList.remove('animate');
+                void sixtan.offsetWidth;
+                sixtan.classList.add('animate');
+            }
+            
+            
+        }
+
+        let pressed = [];
+
+        document.addEventListener('keydown', keydownHandle);
+        // sixtan.addEventListener('webkitAnimationEnd', e => sixtan.classList.remove('animate'));
+    </script>
+</body>
+</html>
