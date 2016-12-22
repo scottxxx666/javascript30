@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+
+    // You might think we can just do something like this:
+
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+
+    const copy_players = players.slice();
+    copy_players[3] = 'Big Poppy';
+
+    console.log(players);
+    console.log(copy_players);
+
+    // one day
+
+    // or create a new array and concat the old one in
+
+    const copy_players2 = [].concat(players);
+    copy_players2[3] = 'Very big poppy';
+
+    console.log(players);
+    console.log(copy_players2);
+
+    // or use the new ES6 Spread
+
+    const copy_players3 = [...players];
+    copy_players3[3] = 'Small poppy';
+
+    console.log(players);
+    console.log(copy_players3);
+
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+
+    // how do we take a copy instead?
+
+    // We will hopefully soon see the object ...spread
+
+    // const copy_person = {...person};  <== not working
+
+    const copy_person = Object.assign({}, person, {'phone': 123, 'age': 87});
+
+    console.log(person);
+    console.log(copy_person);
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const wes = {
+      name: 'Wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    };
+
+    const copy_wes = Object.assign({}, JSON.parse(JSON.stringify(wes)));
+    copy_wes.social.facebook = 'wesfb';
+
+    console.log(wes);
+    console.log(copy_wes);
+
+  </script>
+
+</body>
+</html>

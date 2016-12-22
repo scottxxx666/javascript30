@@ -25,3 +25,5 @@ DAY 11 - [Custom HTML5 video player](https://scottxxx666.github.io/javascript30/
 DAY 12 - [Konami code](https://scottxxx666.github.io/javascript30/konami_code)
 
 DAY 13 - [Slide in scroll](https://scottxxx666.github.io/javascript30/scroll)
+
+DAY 14 - [JS Reference VS Copy](https://scottxxx666.github.io/javascript30/reference)
