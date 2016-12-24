@@ -36,7 +36,7 @@
     const innerHtml = items.map((item, i) => {
       return `
         <li>
-          <input type="checkbox" id="item${i}" data-id="${i}"/>
+          <input type="checkbox" id="item${i}" data-id="${i}" ${item.checked ? 'checked':''}/>
           <label for="item${i}">${item.text}</label>
         </li>
       `;
@@ -73,7 +73,7 @@
 
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', clickList);
-  
+
   updateList(items);
 
 </script>
