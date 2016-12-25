@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text shadow mouse move event</title>
+</head>
+<body>
+    <style type="text/css">
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text {
+            font-size: 42px;
+            font-weight: 600;
+        }
+    </style>
+    <div class="container">
+        <div class="text">
+            Yoooooooo!
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    'use strict'
+
+    const text = document.querySelector('.text');
+    const container = document.querySelector('.container');
+    const shadow = 200;
+
+    const mouseMoveHandle = function mouseMoveHandler (e) {
+        const { offsetWidth: width, offsetHeight: height } = container;
+        let { offsetX: x, offsetY: y } = e;
+
+        if (e.target.matches('.text')) {
+            x += e.target.offsetLeft;
+            y += e.target.offsetTop;
+        }
+
+        const shadowX = (x / width * shadow) - (shadow / 2);
+        const shadowY = (y / height * shadow) - (shadow / 2);
+
+        text.style.textShadow = `${shadowX}px ${shadowY}px 3px gray`;
+    }
+
+    const touchHandle = function touchHandler (e) {
+        const { offsetWidth: width, offsetHeight: height } = container;
+        let x = e.touches[0].pageX;
+        let y = e.touches[0].pageY;
+
+        const shadowX = (x / width * shadow) - (shadow / 2);
+        const shadowY = (y / height * shadow) - (shadow / 2);
+        
+        text.style.textShadow = `${shadowX}px ${shadowY}px 3px gray`;
+    }
+    
+
+    document.querySelector('.container').addEventListener('mousemove', mouseMoveHandle);
+    document.querySelector('.container').addEventListener('touchmove', touchHandle);
+
+    </script>
+</body>
+</html>
