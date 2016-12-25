@@ -47,6 +47,8 @@
     }
 
     const touchHandle = function touchHandler (e) {
+        e.preventDefault();
+
         const { offsetWidth: width, offsetHeight: height } = container;
         let x = e.touches[0].pageX;
         let y = e.touches[0].pageY;
