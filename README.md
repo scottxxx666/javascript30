@@ -31,3 +31,5 @@ DAY 14 - [JS Reference VS Copy](https://scottxxx666.github.io/javascript30/refer
 DAY 15 - [LocalStorage and Event Delegation](https://scottxxx666.github.io/javascript30/local_storage)
 
 DAY 16 - [Text shadow mouse move event](https://scottxxx666.github.io/javascript30/text_shadow)
+
+DAY 17 - [Sorting Names without articles](https://scottxxx666.github.io/javascript30/sort_without_articles)
