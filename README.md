@@ -29,3 +29,5 @@ DAY 13 - [Slide in scroll](https://scottxxx666.github.io/javascript30/scroll)
 DAY 14 - [JS Reference VS Copy](https://scottxxx666.github.io/javascript30/reference)
 
 DAY 15 - [LocalStorage and Event Delegation](https://scottxxx666.github.io/javascript30/local_storage)
+
+DAY 16 - [Text shadow mouse move event](https://scottxxx666.github.io/javascript30/text_shadow)
