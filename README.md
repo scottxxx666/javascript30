@@ -33,3 +33,5 @@ DAY 15 - [LocalStorage and Event Delegation](https://scottxxx666.github.io/javas
 DAY 16 - [Text shadow mouse move event](https://scottxxx666.github.io/javascript30/text_shadow)
 
 DAY 17 - [Sorting Names without articles](https://scottxxx666.github.io/javascript30/sort_without_articles)
+
+DAY 18 - [Tally String Times with Reduce](https://scottxxx666.github.io/javascript30/tally_times)
