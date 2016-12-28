@@ -29,66 +29,65 @@ const showCanvas = function videoToCanvas (e) {
 
 const drawCanvas = function drawCanvasFunction () {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    rangeFilt();
 
-    Object.keys(filtVar).forEach(filt => {
-        if (filtVar[filt]) {
-        }
-    });
+    let pixel = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    pixel = rangeFilt(pixel);
     
     if (filtVar.splitVideo) {
-        splitVideo();
+        pixel = splitVideo(pixel);
     }
 
     if (filtVar.redVideo) {
-        redVideo();
+        pixel = redVideo(pixel);
     }
 
-    if (filtVar.shadowVideo) {
-        shadowVideo();
-    }
-  
+    shadowVideo(filtVar.shadowVideo);
+
+    ctx.putImageData(pixel, 0, 0);
+
 }
 
 const snapVideo = function snapVideoFun () {
-    const file = canvas.toDataURL();
-
     snapSound.currentTime = 0;
     snapSound.play();
 
+    const file = canvas.toDataURL('image/jpeg');
     const snapLink = document.createElement('a');
     const img = document.createElement('img');
 
     img.setAttribute('src', file);
     snapLink.appendChild(img);
-    snapLink.setAttribute('href', file);
+    snapLink.href = file;
     snapLink.setAttribute('download', 'snapshot');
     strip.appendChild(snapLink);
 }
 
-const redVideo = function redVideoFunction () {
-    const newCtx = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    for (let i=0; i<newCtx.data.length; i+=4) {
-        newCtx.data[i] += 255;
+const redVideo = function redVideoFunction (newCtx) {
+    for (let i = 0; i < newCtx.data.length; i += 4) {
+        newCtx.data[i] += 200;
     }
-    ctx.putImageData(newCtx, 0, 0);
+    return newCtx;
 }
 
-const shadowVideo = function shadowVideoFun () {
-    ctx.globalAlpha = 0.3;
+const shadowVideo = function shadowVideoFun (shadow) {
+    if (shadow) {
+        ctx.globalAlpha = 0.3;
+    } else {
+        ctx.globalAlpha = 1;
+    }
 }
 
-const splitVideo = function splitVideoFun () {
-    const newCtx = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < newCtx.data.length; i+=4) {
+const splitVideo = function splitVideoFun (newCtx) {
+    for (let i = 0; i < newCtx.data.length; i += 4) {
         newCtx.data[i - 150] = newCtx.data[i + 0];
         newCtx.data[i + 150] = newCtx.data[i + 1];
         newCtx.data[i + 100] = newCtx.data[i + 2];
     }
-    ctx.putImageData(newCtx, 0, 0);
+    return newCtx;
 }
 
-const rangeFilt = function rangeFilter () {
+const rangeFilt = function rangeFilter (newCtx) {
     const inputs = document.querySelectorAll('input[type=range]');
     let range = {};
     inputs.forEach(input => {
@@ -96,8 +95,7 @@ const rangeFilt = function rangeFilter () {
         range[name] = input.value;
     });
 
-    const newCtx = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    for (let i=0; i<newCtx.data.length; i+=4) {
+    for (let i = 0; i < newCtx.data.length; i += 4) {
 
         if (!isInRange(range, newCtx.data[i + 0], newCtx.data[i + 1], newCtx.data[i + 2], newCtx.data[i + 3])) {
             continue;
@@ -105,7 +103,7 @@ const rangeFilt = function rangeFilter () {
 
         newCtx.data[i + 3] = 0;
     }
-    ctx.putImageData(newCtx, 0, 0);
+    return newCtx;
 }
 
 const isInRange = function isInRangeFun (range, r, g, b, alpha) {
