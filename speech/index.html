@@ -8,12 +8,19 @@
 
   <div class="words" contenteditable>
   </div>
+  <div class="select-div">
+    <select id="lang">
+      <option value="ch">中文</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
 <script>
   'use strict'
 
   
   const words = document.querySelector('.words');
+  const lang = document.querySelector('#lang');
 
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
@@ -42,6 +49,7 @@
   recognition.addEventListener('result', resultRecognition);
   recognition.addEventListener('end', e => recognition.start());
 
+  lang.addEventListener('input', e => { recognition.lang = e.target.value });
   // recognition.lang = 'en';
   recognition.start();
 </script>
@@ -84,6 +92,12 @@
       bottom: 0;
       border: 1px solid;
       border-color: transparent #efe4e4;
+    }
+
+    .select-div {
+      width: 80px;
+      margin: 0 auto;
+      position: relative;
     }
   </style>
 
