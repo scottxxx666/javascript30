@@ -37,3 +37,5 @@ DAY 17 - [Sorting Names without articles](https://scottxxx666.github.io/javascri
 DAY 18 - [Tally String Times with Reduce](https://scottxxx666.github.io/javascript30/tally_times)
 
 DAY 19 - [Unreal Webcam Fun](https://scottxxx666.github.io/javascript30/webcam)
+
+DAY 19 - [Native Speech Recognition](https://scottxxx666.github.io/javascript30/speech)
