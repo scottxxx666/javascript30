@@ -12,32 +12,37 @@
 <script>
   'use strict'
 
+  
   const words = document.querySelector('.words');
 
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+
   const resultRecognition = function resultRecognitionFun (e) {
-      const text = e.results[0][0].transcript;
+      const text = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+
       const isFinal = e.results[0].isFinal;
 
-      console.log(text, isFinal);
+      p.innerText = text;
 
-      if (!isFinal) {
-        return false;
+      if (isFinal) {
+        p = document.createElement("p");
+        words.appendChild(p);
       }
 
-      const p = document.createElement("p");
-      p.innerText = text;
-      words.appendChild(p);
   }
 
-  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  const recognition = new SpeechRecognition();
+  let p = document.createElement("p");
+  words.appendChild(p);
 
   recognition.addEventListener('result', resultRecognition);
   recognition.addEventListener('end', e => recognition.start());
 
   // recognition.lang = 'en';
-  recognition.interimResults = true;
   recognition.start();
 </script>
 
