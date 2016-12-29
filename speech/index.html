@@ -50,7 +50,6 @@
   recognition.addEventListener('end', e => recognition.start());
 
   lang.addEventListener('input', e => { recognition.lang = e.target.value });
-  // recognition.lang = 'en';
   recognition.start();
 </script>
 
