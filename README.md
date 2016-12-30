@@ -41,3 +41,5 @@ DAY 19 - [Unreal Webcam Fun](https://scottxxx666.github.io/javascript30/webcam)
 DAY 20 - [Native Speech Recognition](https://scottxxx666.github.io/javascript30/speech)
 
 DAY 21 - [Geolocation based Speedometer and Compass](https://scottxxx666.github.io/javascript30/geolocation)
+
+DAY 22 - [Follow Along Links](https://scottxxx666.github.io/javascript30/follow_links)
