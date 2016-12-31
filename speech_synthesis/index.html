@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Synthesis</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="voiceinator">
+
+      <h1>Speech Synthesis</h1>
+
+      <select name="voice" id="voices">
+        <option value="">Select A Voice</option>
+      </select>
+
+      <label for="rate">Rate:</label>
+      <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+
+      <label for="pitch">Pitch:</label>
+
+      <input name="pitch" type="range" min="0" max="2" value="1" step="0.1">
+      <textarea name="text">Hello! I love JavaScript 👍</textarea>
+      <button id="stop">Stop!</button>
+      <button id="speak">Speak</button>
+
+    </div>
+
+<script>
+  const msg = new SpeechSynthesisUtterance();
+  const voicesDropdown = document.querySelector('[name="voice"]');
+  const options = document.querySelectorAll('[type="range"], [name="text"]');
+  const speakButton = document.querySelector('#speak');
+  const stopButton = document.querySelector('#stop');
+  let voices = [];
+
+  const speechChangeHandle = function speechChangeHandler (e) {
+    voices = speechSynthesis.getVoices();
+    const langOptions = voices.map(voice => {
+      return `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`;
+    }).join('');
+
+    voicesDropdown.innerHTML = langOptions;
+  }
+
+  const toggle = function toggleFun (play = true) {
+    speechSynthesis.cancel();
+    if (!play) {
+      return false;
+    }
+    speechSynthesis.speak(msg);
+  }
+
+  const voiceChange = function voiceChangeFun (e) {
+    msg.voice = voices.find(voice => voice.name === this.value);
+    toggle();
+  }
+
+  const inputChange = function inputChangeFun (e) {
+    msg[this.name] = this.value;
+    toggle();
+  }
+
+  msg.text = document.querySelector('[name="text"]').value;
+
+  speechSynthesis.addEventListener('voiceschanged', speechChangeHandle);
+  options.forEach(option => option.addEventListener('change', inputChange));
+  voicesDropdown.addEventListener('change', voiceChange);
+  speakButton.addEventListener('click', toggle);
+  // can also use ('click', e => toggle(false));
+  stopButton.addEventListener('click', toggle.bind(null, false));
+</script>
+
+</body>
+</html>
