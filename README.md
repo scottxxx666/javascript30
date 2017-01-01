@@ -45,3 +45,5 @@ DAY 21 - [Geolocation based Speedometer and Compass](https://scottxxx666.github.
 DAY 22 - [Follow Along Links](https://scottxxx666.github.io/javascript30/follow_links)
 
 DAY 23 - [Speech Synthesis](https://scottxxx666.github.io/javascript30/speech_synthesis)
+
+DAY 24 - [Sticky Nav](https://scottxxx666.github.io/javascript30/sticky_nav)
