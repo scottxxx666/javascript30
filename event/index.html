@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after { box-sizing: inherit; }
+
+  div {
+    width:100%;
+    padding:100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background:mistyrose;
+  }
+
+  .three {
+    background:coral;
+  }
+</style>
+
+<button></button>
+<script>
+  'use strict'
+
+  const divs = document.querySelectorAll('div');
+
+  const mousedown = function mousedownHandle () {
+    console.log(this.classList[0]);
+  }
+
+  const mouseup = function mousedownHandle (e) {
+    console.log(this.classList[0]);
+    e.stopPropagation();
+  }
+
+  divs.forEach(div => {
+    div.addEventListener('mousedown', mousedown, { once: true });
+    div.addEventListener('mouseup', mouseup, true);
+  });
+</script>
+</body>
+</html>
