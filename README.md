@@ -49,3 +49,5 @@ DAY 23 - [Speech Synthesis](https://scottxxx666.github.io/javascript30/speech_sy
 DAY 24 - [Sticky Nav](https://scottxxx666.github.io/javascript30/sticky_nav)
 
 DAY 25 - [Event Capture](https://scottxxx666.github.io/javascript30/event)
+
+DAY 26 - [Follow Along Dropdown](https://scottxxx666.github.io/javascript30/follow_nav)
