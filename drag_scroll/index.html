@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- for not showing scroll bar u can -->
+    <!-- 1. motify css (not all supported) -->
+    <!-- 2. overflow:hidden -->
+    <!-- 3. add hidden div outside-->
     <div class="items">
         <div class="item item1">01</div>
         <div class="item item2">02</div>
@@ -63,8 +67,9 @@
             if (!isDown) {
                 return false;
             }
+            e.preventDefault();
             const move = (e.clientX - startX) * moveRatio;
-            items.scrollLeft = startScrollLeft + move;
+            items.scrollLeft = startScrollLeft - move;
         });
 
     </script>
