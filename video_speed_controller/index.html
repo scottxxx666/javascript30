@@ -27,6 +27,7 @@
     }
 
     const touchMoveHandler = function touchMoveHandler (e) {
+        e.preventDefault();
         const y = e.touches[0].pageY - this.offsetTop;
         const percent = y / this.offsetHeight;
         videoSpeedHandler(y, percent);
