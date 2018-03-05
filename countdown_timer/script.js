@@ -16,17 +16,20 @@ function timer(interval) {
 
     countdown = setInterval(() => {
         const time = Math.ceil((end - Date.now()) / 1000);
-        displayLeftTime(time);
-        if (time <= 0) {
+        if (time < 0) {
             clearInterval(countdown);
+            return;
         }
+        displayLeftTime(time);
     }, 1000);
 }
 
 function displayLeftTime(time) {
     const minute = formatTime(Math.floor(time / 60));
     const sec = formatTime(time % 60);
-    leftTime.textContent = `${minute}:${sec}`;
+    const display = `${minute}:${sec}`;
+    leftTime.textContent = display;
+    document.title = display;
 }
 
 function displayEndTime(end) {
@@ -48,8 +51,6 @@ buttons.forEach(button => {
 
 customForm.addEventListener('submit', e => {
     e.preventDefault();
-    if (customForm.minutes.value > 0) {
-        timer(customForm.minutes.value * 60);
-        return false;
-    }
+    timer(customForm.minutes.value * 60);
+    customForm.reset();
 });
