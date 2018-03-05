@@ -55,3 +55,5 @@ DAY 26 - [Follow Along Dropdown](https://scottxxx666.github.io/javascript30/foll
 DAY 27 - [Click and Drag to Scroll](https://scottxxx666.github.io/javascript30/drag_scroll)
 
 DAY 28 - [Video Speed Controller](https://scottxxx666.github.io/javascript30/video_speed_controller)
+
+DAY 29 - [Countdown Clock](https://scottxxx666.github.io/javascript30/countdown_timer)
