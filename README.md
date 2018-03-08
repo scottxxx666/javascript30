@@ -57,3 +57,5 @@ DAY 27 - [Click and Drag to Scroll](https://scottxxx666.github.io/javascript30/d
 DAY 28 - [Video Speed Controller](https://scottxxx666.github.io/javascript30/video_speed_controller)
 
 DAY 29 - [Countdown Clock](https://scottxxx666.github.io/javascript30/countdown_timer)
+
+DAY 29 - [Whack A Mole](https://scottxxx666.github.io/javascript30/whack_a_mole)
